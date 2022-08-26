@@ -32,7 +32,7 @@ After kurtosis is started - configure a BASH terminal with environment variables
 `source ./config-terminal.sh`
 Adjust environment variables inside file as required by kurtosis startup.
 
-**IMPORTANT!** Make sure to adjust `near` commands inside `package.json` project files to use `locnear` command instead.
+**IMPORTANT!** Make sure to adjust `near` commands inside `package.json` project files to use `near` command instead.
 
 # Accounts
 
@@ -44,7 +44,7 @@ Then we can extract private key using Chrome Dev tools. And pool the public key 
 
 ### Getting Public Key from Private Key
 ```
-locnear repl
+near repl
 nearAPI.KeyPair.fromString("ed25519:4SSMoxgetTffkgCgoQ9Hwx1o9cVk4eAVANUURPXPhtJZzmwycgQGMo3HrSX4wkmoZ2ymF8u5pgdv9JsTzyBgFzM4").publicKey.toString()
 -- Returns Public Key
 .exit
@@ -54,7 +54,7 @@ nearAPI.KeyPair.fromString("ed25519:4SSMoxgetTffkgCgoQ9Hwx1o9cVk4eAVANUURPXPhtJZ
 2. Once finished - select account and open Chomw DevTools. Go to Application section.
 3. Open LocalStorage area and copy the PrivateKey of an appropriate Wallet address.
 4. Use Getting Public Key from Private key instructions above to extract Public Key from Private Key.
-5. Verify public key using `locnear keys <accountname.test.near>`
+5. Verify public key using `near keys <accountname.test.near>`
 6. Create a json file in: `$HOME/.near-credentials/localnet/` name it `accountname.test.near.json`
 7. Set proper permissions using `chown 600 *.json`
 
@@ -62,12 +62,12 @@ nearAPI.KeyPair.fromString("ed25519:4SSMoxgetTffkgCgoQ9Hwx1o9cVk4eAVANUURPXPhtJZ
 
 ## Creating Sub-Accounts
 It is possible to create sub accounts once we set up a main account.
-`locnear create-account cont1.a.test.near --masterAccount a.test.near --initialBalance 5`
+`near create-account cont1.a.test.near --masterAccount a.test.near --initialBalance 5`
 Unfortunately it seems that assigning a custom key right from the start is impossible.
 This means that we can later create another key and assign it to the new account as needed.
 ```
-locnear generate-key ...
-locnear add-key ...
+near generate-key ...
+near add-key ...
 ```
 However importing them after into the wallet is still impossible.
 
@@ -80,16 +80,16 @@ However importing them after into the wallet is still impossible.
 
 ## Deploy contract
 1. `cd contract`
-2. `locnear delete hello.bob.test.near bob.test.near`
-3. `locnear create-account hello.bob.test.near --masterAccount a.test.near --initialBalance 20`
-4. `locnear deploy --wasm-file ./target/wasm32-unknown-unknown/release/hello_near.wasm --accountId hello.a.test.near`
+2. `near delete hello.bob.test.near bob.test.near`
+3. `near create-account hello.bob.test.near --masterAccount a.test.near --initialBalance 20`
+4. `near deploy --wasm-file ./target/wasm32-unknown-unknown/release/hello_near.wasm --accountId hello.a.test.near`
 
 # Calling Smart contract with CLI
-`locnear call <contractName> <methodName> [args]`
+`near call <contractName> <methodName> [args]`
 Foe example to call contract with Arguments:
-`locnear call hello.a.test.near set_greeting '{"message":"goaway"}' --accountId  b.test.near`
+`near call hello.a.test.near set_greeting '{"message":"goaway"}' --accountId  b.test.near`
 or
-`locnear call hello.a.test.near set_greeting '{}' --accountId  b.test.near`
+`near call hello.a.test.near set_greeting '{}' --accountId  b.test.near`
 
 
 # Importing account with Private Key fails.
