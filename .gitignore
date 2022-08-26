@@ -1,4 +1,5 @@
 nenv/
 contracts/**/target/
+contracts/**/contract/target/
 
 recoveries
