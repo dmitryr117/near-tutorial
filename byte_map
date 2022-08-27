@@ -1,0 +1,34 @@
+Serialisation Models:
+Research tools: 
+https://onlinestringtools.com/convert-string-to-binary
+https://www.rapidtables.com/convert/number/binary-to-decimal.html
+https://www.base64decode.org/
+https://www.utf8-chartable.de/unicode-utf8-table.pl?start=65280&utf8=dec
+
+
+Serialization for >8-bit integers happens in Little-Endian. However bytes are arranged in reverse order.
+so if the value reads: 00001001 00000001 - the actual binary is: 00000001 00001001
+
+LookupMap Serialization:
+
+prefix		       len 32-bit int                                 char bytes
+
+key3:
+                                                                k   e   y   3
+109              4  / 239 191 189 / 239 191 189 / 239 191 189 - 107 101 121 51
+
+keyotherkey:
+                                                                k   e   y   o   t   h   e   r   k   e   y
+109              11 / 239 191 189 / 239 191 189 / 239 191 189 - 107 101 121 111 116 104 101 114 107 101 121
+
+
+
+Vector Serialization:
+
+prefix           64-bit int denoted by utf-8 3-byte unknown char when empty [239 191 189].
+
+Empty []:
+118              / 239 191 189 / 239 191 189 / 239 191 189 / 239 191 189 / 239 191 189 / 239 191 189 / 239 191 189 / 239 191 189
+
+One key [1]:
+118              / 1           / 239 191 189 / 239 191 189 / 239 191 189 / 239 191 189 / 239 191 189 / 239 191 189 / 239 191 189
