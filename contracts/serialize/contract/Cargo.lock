@@ -405,14 +405,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "guest_book"
-version = "1.0.0"
-dependencies = [
- "near-sdk",
- "uint",
-]
-
-[[package]]
 name = "hashbrown"
 version = "0.11.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -989,6 +981,14 @@ dependencies = [
  "itoa",
  "ryu",
  "serde",
+]
+
+[[package]]
+name = "serialize"
+version = "1.0.0"
+dependencies = [
+ "near-sdk",
+ "uint",
 ]
 
 [[package]]

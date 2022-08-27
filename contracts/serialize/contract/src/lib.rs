@@ -1,7 +1,7 @@
 /*
  * Example smart contract written in RUST
  *
- * Contract: Buest Book V1
+ * Contract: Serialization Tutorial
  * 
  * Developer: Dmitry Rodetsky
  * GitHub: https://github.com/dmitryr117/near-tutorial
@@ -10,7 +10,7 @@
 
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::{log, near_bindgen, serde_json};
-use near_sdk::collections::Vector;
+use near_sdk::collections::{Vector, LookupMap};
 use std::cmp::min;
 
 const MESSAGE_LIMIT: u64 = 10;
@@ -19,12 +19,14 @@ const MESSAGE_LIMIT: u64 = 10;
 #[derive(BorshDeserialize, BorshSerialize)]
 pub struct Contract {
     messages: Vector<String>,
+    otherdata: LookupMap<String, String>,
 }
 
 impl  Default for Contract {
     fn default() -> Self {
         Self {
-            messages: Vector::new(b"v")
+            messages: Vector::new(b"v"),
+            otherdata: LookupMap::new(b"m")
         }
     }
 }
@@ -33,6 +35,11 @@ impl  Default for Contract {
 impl Contract {
     pub fn add_message(&mut self, txt: String) {
         self.messages.push(&txt);
+    }
+
+    pub fn add_other(&mut self, key: String, txt:String){
+        log!("K: {}, V: {}", key, txt);
+        self.otherdata.insert(&key, &txt);
     }
 
     pub fn get_messages(&self) -> String {
@@ -45,5 +52,9 @@ impl Contract {
         }
         let json = serde_json::to_string(&results).unwrap();
         return json;
+    }
+
+    pub fn get_other(&self, key: String) -> String {
+        return self.otherdata.get(&key).unwrap().to_string();
     }
 }
